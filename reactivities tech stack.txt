@@ -1,0 +1,3 @@
+Asp.net: 3.2.1
+ef core:3.1
+sqlite
