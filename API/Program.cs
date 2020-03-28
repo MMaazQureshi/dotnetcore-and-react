@@ -23,10 +23,13 @@ namespace API
             try{
                 var context = Services.GetRequiredService<DataContext>();
                 context.Database.Migrate();
+                 Seed.SeedData(context);
             }
             catch (Exception ex){
+                
                 var Logger=Services.GetRequiredService<ILogger<Program>>();
                 Logger.LogError(ex,"An error occured during Migration");
+
             }
         }
         host.Run();

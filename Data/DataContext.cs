@@ -10,7 +10,8 @@ namespace Data
         {
             
         }
-        public DbSet<Value> values{get; set;}
+        public DbSet<Value> values{ get; set; }
+        public DbSet<Activity> Activities{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder){
             builder.Entity<Value>().HasData(
                 new Value{Id =1,value="Value 101"},
