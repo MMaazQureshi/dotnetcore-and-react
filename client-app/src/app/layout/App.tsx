@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { IActivity } from "../models/Activity";
 import { NavBar } from "../../features/Nav/NavBar";
 import { Container } from "semantic-ui-react";
 import { ActivityDashboard } from "../../features/activities/Dashboard/ActivityDashboard";
 import agent from "../Api/agent";
 import { LoadingComponent } from "./LoadingComponent";
+import ActivityStore from "../stores/activityStore";
 
 interface IState {
   activities: IActivity[];
 }
 
 const App = () => {
+  const activityStore = useContext(ActivityStore);
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(
     null
