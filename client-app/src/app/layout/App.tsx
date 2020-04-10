@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { IActivity } from "../models/Activity";
 import { NavBar } from "../../features/Nav/NavBar";
 import { Container } from "semantic-ui-react";
-import { ActivityDashboard } from "../../features/activities/Dashboard/ActivityDashboard";
+import ActivityDashboard  from "../../features/activities/Dashboard/ActivityDashboard";
 import agent from "../Api/agent";
 import { LoadingComponent } from "./LoadingComponent";
 import ActivityStore from "../stores/activityStore";
+import {observer} from "mobx-react-lite";
 
 interface IState {
   activities: IActivity[];
@@ -18,7 +19,7 @@ const App = () => {
     null
   );
   const [editMode, setEditMode] = useState(false);
-  const [loading,setLoading] = useState(true);
+  
   const [submitting, setSubmitting] = useState(false);
   const [target, setTarget] = useState('');
 
@@ -62,17 +63,9 @@ const App = () => {
     }).then(()=>setSubmitting(false));
   }
   useEffect(() => {
-    agent.Activities.list()
-      .then(response => {
-        let activities:IActivity[] =[];
-        response.forEach(
-          activity => {activity.date=activity.date.split('.')[0]
-          activities.push(activity);}
-        )
-        setActivities(activities);
-      }).then(()=>setLoading(false));
-  }, []); //now equivalent to componenDidMount with second parameter as empty array
-if(loading){
+    activityStore.loadActivities();
+  }, [activityStore]); //now equivalent to componenDidMount with second parameter as empty array
+if(activityStore.loadingInitial){
   return <LoadingComponent inverted={true} content="Loading activities..."/>
 }
 else{
@@ -81,11 +74,7 @@ else{
       <NavBar handleCreateActivity={handleOPenCreateForm} />
       <Container style={{ marginTop: "7em" }}>
         <ActivityDashboard
-          activities={activities}
-          selectActivity={handleSelectActivity}
-          selectedActivity={selectedActivity}
           setSelectedActivity={setSelectedActivity}
-          editMode={editMode}
           setEditMode={setEditMode}
           createActivity={handleCreateActivity}
           editActivity={handleEditActivity}
@@ -100,4 +89,4 @@ else{
 
 }
   
-export default App;
+export default observer(App);
