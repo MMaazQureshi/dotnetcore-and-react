@@ -71,12 +71,11 @@ if(activityStore.loadingInitial){
 else{
   return (
     <div>
-      <NavBar handleCreateActivity={handleOPenCreateForm} />
+      <NavBar/>
       <Container style={{ marginTop: "7em" }}>
         <ActivityDashboard
           setSelectedActivity={setSelectedActivity}
           setEditMode={setEditMode}
-          createActivity={handleCreateActivity}
           editActivity={handleEditActivity}
           deleteActivity ={handleDeleteActivity}
           submitting={submitting}

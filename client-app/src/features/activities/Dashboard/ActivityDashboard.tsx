@@ -11,7 +11,6 @@ interface IProps {
   setEditMode: (editMode: boolean) => void;
   setSelectedActivity: (activity: IActivity | null) => void;
   editActivity:(activity:IActivity)=> void;
-  createActivity:(activity:IActivity)=> void;
   deleteActivity:( e:React.MouseEvent<HTMLButtonElement, MouseEvent>,activity:IActivity)=> void;
   submitting:boolean;
   target:string;
@@ -20,10 +19,9 @@ interface IProps {
   setEditMode,
   setSelectedActivity,
   editActivity,
-  createActivity,
   deleteActivity,
-  submitting,
-  target
+  target,
+  submitting
 }) => {
   const activityStore = useContext(ActivityStore);
   const {editMode,selectedActivity} = activityStore
@@ -44,8 +42,6 @@ interface IProps {
         setEditMode={setEditMode} 
         selectedActivity={selectedActivity!} 
         editActivity ={editActivity}
-        createActivity ={createActivity}
-        submitting={submitting}
         />}
       </Grid.Column>
     </Grid>
