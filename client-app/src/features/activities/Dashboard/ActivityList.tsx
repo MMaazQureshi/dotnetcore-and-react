@@ -25,7 +25,7 @@ const ActivityList: React.FC = () => {
               </Item.Description>
               <Item.Extra>
                 <Button
-                as={NavLink} to={`activities/${activity.id}`}
+                as={NavLink} to={`/activities/${activity.id}`}
                   floated="right"
                   content="view"
                   color="blue"

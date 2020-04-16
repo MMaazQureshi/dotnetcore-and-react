@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 
- const ActivityDetails: React.FC<RouteComponentProps<{id:string}>> = ({match}) => {
+ const ActivityDetails: React.FC<RouteComponentProps<{id:string}>> = ({match,history}) => {
   const activityStore = useContext(ActivityStore);
   const{activity,openEditForm,canceactivity,loadActivity,loadingInitial}= activityStore;
   
@@ -40,7 +40,7 @@ import { LoadingComponent } from "../../../app/layout/LoadingComponent";
             basic
             color="grey"
             content="Cancel"
-            onClick={() => canceactivity()}
+            onClick={() => history.push('/activities')}
           />
         </Button.Group>
       </Card.Content>
