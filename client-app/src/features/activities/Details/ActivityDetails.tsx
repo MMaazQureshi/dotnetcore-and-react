@@ -1,38 +1,46 @@
-import React, { useContext} from "react";
+import React, { useContext, useEffect} from "react";
 import { Card, Image, Button } from "semantic-ui-react";
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
+import { RouteComponentProps } from "react-router-dom";
+import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 
- const ActivityDetails: React.FC = () => {
+ const ActivityDetails: React.FC<RouteComponentProps<{id:string}>> = ({match}) => {
   const activityStore = useContext(ActivityStore);
-  const{selectedActivity:Activity,openEditForm,canceSelectedActivity}= activityStore
+  const{activity,openEditForm,canceactivity,loadActivity,loadingInitial}= activityStore;
+  
+  useEffect(()=>{
+    loadActivity(match.params.id)
+  },[loadActivity])
+ 
+ if(loadingInitial||!activity) return <LoadingComponent inverted={true} content="loading activity..."/>
   return (
    
     <Card fluid>
       <Image
-        src={`/assets/categoryImages/${Activity!.category}.jpg`}
+        src={`/assets/categoryImages/${activity!.category}.jpg`}
         wrapped
         ui={false}
       />
       <Card.Content>
-        <Card.Header>{Activity!.title}</Card.Header>
+        <Card.Header>{activity!.title}</Card.Header>
         <Card.Meta>
-          <span className="date">{Activity!.date}</span>
+          <span className="date">{activity!.date}</span>
         </Card.Meta>
-        <Card.Description>{Activity!.description}</Card.Description>
+        <Card.Description>{activity!.description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}>
           <Button
             color="blue"
-            onClick={() => openEditForm(Activity!.id)}
+            onClick={() => openEditForm(activity!.id)}
             content="Edit"
           />
           <Button
             basic
             color="grey"
             content="Cancel"
-            onClick={() => canceSelectedActivity()}
+            onClick={() => canceactivity()}
           />
         </Button.Group>
       </Card.Content>

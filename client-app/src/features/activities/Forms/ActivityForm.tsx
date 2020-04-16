@@ -5,18 +5,18 @@ import {v4 as uuid} from 'uuid';
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
 interface IProps {
-  selectedActivity: IActivity;
+  activity: IActivity;
 }
 
  const ActivityForm: React.FC<IProps> = ({
-  selectedActivity
+  activity: initialFormState
 }) => {
   
   const activityStore = useContext(ActivityStore)
   const{createActivity,submitting,editActivity,cancelFormOpen} = activityStore;
     const initForm = () => {
-        if (selectedActivity) {
-          return selectedActivity;
+        if (initialFormState) {
+          return initialFormState;
         } else {
           return {
             id: "",

@@ -5,6 +5,10 @@ import ActivityDashboard  from "../../features/activities/Dashboard/ActivityDash
 import { LoadingComponent } from "./LoadingComponent";
 import ActivityStore from "../stores/activityStore";
 import {observer} from "mobx-react-lite";
+import { Route } from "react-router-dom";
+import { HomePage } from "../../features/Home/HomePage";
+import ActivityForm from "../../features/activities/Forms/ActivityForm";
+import ActivityDetails from "../../features/activities/Details/ActivityDetails";
 
 
 
@@ -21,7 +25,11 @@ else{
     <div>
       <NavBar/>
       <Container style={{ marginTop: "7em" }}>
-        <ActivityDashboard/>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/Activities" component={ActivityDashboard} />
+        <Route path="/Activities/:id" component={ActivityDetails} />
+        <Route path="/CreateActivity" component={ActivityForm}/>
+         
       </Container>
     </div>
   );
