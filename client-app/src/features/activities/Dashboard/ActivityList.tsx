@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const ActivityList: React.FC = () => {
   const activityStore = useContext(ActivityStore);
-  const{activitiesByDate:activities,selectActivity,deleteActivity,submitting,target} = activityStore
+  const{activitiesByDate:activities,deleteActivity,submitting,target} = activityStore
   return (
     <Segment clearing>
       <Item.Group divided>

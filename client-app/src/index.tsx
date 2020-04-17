@@ -4,11 +4,15 @@ import './app/layout/styles.css';
 import {BrowserRouter} from 'react-router-dom';
 import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
+import ScrollToTop from './app/layout/ScrollToTop';
+import 'mobx-react-lite/batchingForReactDom'
 
 ReactDOM.render(
   // <React.StrictMode>
   <BrowserRouter>
+    <ScrollToTop />
     <App />
+    
     </BrowserRouter>
   // </React.StrictMode>
   ,

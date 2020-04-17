@@ -1,35 +1,33 @@
-import React, { useState, FormEvent, useContext } from "react";
+import React, { useState, FormEvent, useContext, useEffect } from "react";
 import { Segment, Form, Button } from "semantic-ui-react";
-import { IActivity } from "../../../app/models/Activity";
 import {v4 as uuid} from 'uuid';
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
-interface IProps {
-  activity: IActivity;
-}
+import { RouteComponentProps } from "react-router-dom";
 
- const ActivityForm: React.FC<IProps> = ({
-  activity: initialFormState
+ const ActivityForm: React.FC<RouteComponentProps<{id:string}>> = ({
+  match,
+  history
 }) => {
-  
+  const [activity,setActivity] = useState({id: "",
+    title: "",
+    category: "",
+    description: "",
+    date: "",
+    city: "",
+    venue: ""});
   const activityStore = useContext(ActivityStore)
-  const{createActivity,submitting,editActivity,cancelFormOpen} = activityStore;
-    const initForm = () => {
-        if (initialFormState) {
-          return initialFormState;
-        } else {
-          return {
-            id: "",
-            title: "",
-            category: "",
-            description: "",
-            date: "",
-            city: "",
-            venue: ""
-          };
-        }
-      };
-    const [activity, setActivity] = useState(initForm());
+  const{createActivity,submitting,editActivity,cancelFormOpen,activity:initialFormState,loadActivity,clearActivity} = activityStore;
+  useEffect(()=>{
+    if(match.params.id && activity.id.length===0){
+      loadActivity(match.params.id).then(()=>{initialFormState && setActivity(initialFormState)});
+    }
+    return ()=>{
+clearActivity();
+    } 
+  },[initialFormState,match.params.id,loadActivity,activity.id.length,clearActivity])
+    
+    
   // const handleInputChange = (event:any)=>{
   const handleInputChange = (
     event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,11 +39,11 @@ interface IProps {
     if(activity.id.length===0){
         let newActivity = {
           ...activity,id:uuid()}
-        createActivity(newActivity);
+        createActivity(newActivity).then(()=>{history.push(`/activities/${newActivity.id}`)})
     
     }
     else{
-        editActivity(activity);
+        editActivity(activity).then(()=>{history.push(`/activities/${activity.id}`)});
     }
   }
 

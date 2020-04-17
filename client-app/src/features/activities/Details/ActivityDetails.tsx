@@ -2,16 +2,16 @@ import React, { useContext, useEffect} from "react";
 import { Card, Image, Button } from "semantic-ui-react";
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 
  const ActivityDetails: React.FC<RouteComponentProps<{id:string}>> = ({match,history}) => {
   const activityStore = useContext(ActivityStore);
-  const{activity,openEditForm,canceactivity,loadActivity,loadingInitial}= activityStore;
+  const{activity,loadActivity,loadingInitial}= activityStore;
   
   useEffect(()=>{
     loadActivity(match.params.id)
-  },[loadActivity])
+  },[loadActivity,match.params.id])
  
  if(loadingInitial||!activity) return <LoadingComponent inverted={true} content="loading activity..."/>
   return (
@@ -33,7 +33,7 @@ import { LoadingComponent } from "../../../app/layout/LoadingComponent";
         <Button.Group widths={2}>
           <Button
             color="blue"
-            onClick={() => openEditForm(activity!.id)}
+            as={Link} to={`/Edit/${activity.id}`}
             content="Edit"
           />
           <Button

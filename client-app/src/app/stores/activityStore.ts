@@ -88,6 +88,9 @@ class ActivityStore {
   @action cancelFormOpen = () => {
     this.editMode = false;
   }
+  @action clearActivity = ()=>{
+    this.activity = undefined;
+  }
   @action loadActivity=async (id:string)=>{
     let activity = this.activityRegistry.get(id);
     if(activity){
