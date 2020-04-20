@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, useContext, useEffect } from "react";
-import { Segment, Form, Button } from "semantic-ui-react";
+import { Segment, Form, Button, Grid } from "semantic-ui-react";
 import {v4 as uuid} from 'uuid';
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
@@ -48,7 +48,9 @@ clearActivity();
   }
 
   return (
-    <Segment clearing>
+    <Grid>
+      <Grid.Column width='10'>
+      <Segment clearing>
       <Form>
         <Form.Input
           placeholder="Title"
@@ -104,6 +106,9 @@ clearActivity();
         />
       </Form>
     </Segment>
+      </Grid.Column>
+    </Grid>
+    
   );
 };
 export default observer(ActivityForm)
