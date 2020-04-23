@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Data;
 using Domain;
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 namespace Application.Activites
 {
     public class Create

@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using Data;
 using MediatR;
 
@@ -31,8 +33,8 @@ namespace Application.Activites
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var activity = await context.Activities.FindAsync(request.Id);
-                if (activity == null)
-                    throw new Exception("Activity not found");
+                 if (activity == null)
+                    throw new RestException(HttpStatusCode.NotFound,new { activity= "Activity not found" });
                 activity.Title = request.Title ?? activity.Title;
                 activity.Venue = request.Venue ?? activity.Venue;
                 activity.Description = request.Description ?? activity.Description;
