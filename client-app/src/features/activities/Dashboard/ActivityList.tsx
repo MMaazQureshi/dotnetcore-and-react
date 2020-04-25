@@ -3,34 +3,44 @@ import { Item, Label } from "semantic-ui-react";
 import ActivityStore from "../../../app/stores/activityStore";
 import { observer } from "mobx-react-lite";
 import { ActivityListItem } from "./ActivityListItem";
+import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 
 
 
 const ActivityList: React.FC = () => {
   const activityStore = useContext(ActivityStore);
   const{activitiesByDate} = activityStore;
-  return (
-<Fragment>
-{
-  activitiesByDate.map(([group,activities])=>(
-    <Fragment key={group}>
-    <Label key={group} size='large' color='blue'>
-      {group}
-    </Label>
-    
-    <Item.Group divided>
-      {activities.map(activity => (
-        <ActivityListItem key={activity.id} activity={activity} />
-      ))}
-    </Item.Group>
   
-  </Fragment>
-  ))
-}
+  if(activityStore.loadingInitial){
+    return <LoadingComponent inverted={true} content="Loading activities..."/>
+  }
+  else{
 
-</Fragment>
+    return (
+      <Fragment>
+      {
+        activitiesByDate.map(([group,activities])=>(
+          <Fragment key={group}>
+          <Label key={group} size='large' color='blue'>
+            {group}
+          </Label>
+          
+          <Item.Group divided>
+            {activities.map(activity => (
+              <ActivityListItem key={activity.id} activity={activity} />
+            ))}
+          </Item.Group>
+        
+        </Fragment>
+        ))
+      }
+      
+      </Fragment>
+      
+          
+        );
+  }
+  
 
-    
-  );
 };
 export default observer(ActivityList);

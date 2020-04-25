@@ -30,7 +30,6 @@ namespace Application.Activites
                 var activity = await context.Activities.FindAsync(request.Id);
                  if (activity == null)
                     throw new RestException(HttpStatusCode.NotFound,new { activity= "Activity not found" });
-               throw new Exception("server down!");
                 return activity;
 
             }

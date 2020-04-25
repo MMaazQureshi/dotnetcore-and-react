@@ -18,10 +18,8 @@ const App:React.FC<RouteComponentProps> = ({location}) => {
   useEffect(() => {
     activityStore.loadActivities();
   }, [activityStore]); //now equivalent to componenDidMount with second parameter as an array
-if(activityStore.loadingInitial){
-  return <LoadingComponent inverted={true} content="Loading activities..."/>
-}
-else{
+
+
   return (
     <div>
       <ToastContainer position={'bottom-right'}/>
@@ -47,6 +45,5 @@ else{
   );
 };
 
-}
   
 export default withRouter(observer(App));

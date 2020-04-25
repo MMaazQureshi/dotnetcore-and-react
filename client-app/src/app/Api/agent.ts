@@ -19,7 +19,7 @@ axios.interceptors.response.use(undefined,(error)=>{
     if(status===500){
         toast.error('Sorry! Internal Server Error')
     }
-    console.log(error.response);
+    throw error;
 })
 const responseBody = (response:AxiosResponse)=>response.data;
 const sleep =(duration:number)=>(response:AxiosResponse)=>
@@ -33,7 +33,7 @@ delete : (url:string) => axios.delete(url).then(sleep(1000)).then(responseBody),
 }
 const Activities ={
     list : () :Promise<IActivity[]> => requests.get('Activities'),
-    details :(id:string) => requests.get(`Activities/${id}`),
+    details :(id:string):Promise<IActivity> => requests.get(`Activities/${id}`),
     create :(activity: IActivity) =>requests.post('Activities',activity),
     update : (id:string,activity: IActivity) => requests.put(`Activities/${id}`,activity),
     delete:(id:string)=>requests.delete(`Activities/${id}`)

@@ -8,9 +8,12 @@ import * as serviceWorker from './serviceWorker';
 import ScrollToTop from './app/layout/ScrollToTop';
 import 'mobx-react-lite/batchingForReactDom'
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
+import 'react-widgets/dist/css/react-widgets.css'
+import dateFnsLocalizer from 'react-widgets-date-fns'
+
 export const history = createBrowserHistory();
 
+dateFnsLocalizer();
 ReactDOM.render(
   // <React.StrictMode>
 
