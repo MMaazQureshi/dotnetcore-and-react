@@ -117,7 +117,7 @@ class ActivityStore {
   @action loadActivity = async (id: string) => {
     let activity = this.getActivity(id);
     if (activity) {
-      this.activity = activity;
+     runInAction(()=>{this.activity = activity!;}) 
       return activity;
     } else {
       this.loadingInitial = true;
@@ -126,7 +126,7 @@ class ActivityStore {
         runInAction('getting activity',() => {
           activity!.date = new Date(activity!.date);
           this.activity = activity!;
-          // this.activityRegistry.set(activity!.id, activity!);
+         this.activityRegistry.set(activity!.id, activity!);
           this.loadingInitial = false;
         })
         return activity;
