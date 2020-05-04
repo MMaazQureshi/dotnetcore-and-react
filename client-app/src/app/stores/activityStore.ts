@@ -3,6 +3,7 @@ import { createContext } from "react";
 import { IActivity } from "../models/Activity";
 import agent from "../Api/agent";
 import { history } from '../..';
+import { toast } from "react-toastify";
 
 configure({enforceActions:"always"})
 class ActivityStore {
@@ -66,7 +67,8 @@ class ActivityStore {
         this.submitting = false;
 
       })
-      console.log(error);
+      toast.error("Some error occured!")
+      console.log(error.response);
     }
   };
   @action editActivity = async (activity: IActivity)=>{
@@ -83,9 +85,10 @@ class ActivityStore {
     } catch (error) {
       runInAction("editing Activity error",()=>{
         this.submitting = false;
+
       })
-     
-      console.log(error);
+     toast.error("Some error occured!")
+      console.log(error.response);
     }
   }
   @action deleteActivity = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>,activity:IActivity)=>{

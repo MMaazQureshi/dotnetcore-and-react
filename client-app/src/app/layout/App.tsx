@@ -2,7 +2,6 @@ import React, { useEffect, useContext, Fragment } from "react";
 import { NavBar } from "../../features/Nav/NavBar";
 import { Container } from "semantic-ui-react";
 import ActivityDashboard  from "../../features/activities/Dashboard/ActivityDashboard";
-import { LoadingComponent } from "./LoadingComponent";
 import ActivityStore from "../stores/activityStore";
 import {observer} from "mobx-react-lite";
 import { Route ,withRouter, RouteComponentProps, Switch} from "react-router-dom";
